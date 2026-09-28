@@ -273,6 +273,4 @@ Potential features and improvements planned for future releases:
 
 ---
 
-**Last Updated**: September 2026
 
-For the latest updates and releases, visit the [Releases](../../releases) page.
