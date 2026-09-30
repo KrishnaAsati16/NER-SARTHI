@@ -7,21 +7,7 @@ A modern, responsive web application for emergency response coordination and rea
 ![Vite](https://img.shields.io/badge/Vite-5.1.6-blue)
 ![Tailwind CSS](https://img.shields.io/badge/TailwindCSS-3.4.1-blue)
 ![License](https://img.shields.io/badge/License-MIT-green)
-
-## 📋 Table of Contents
-
-- [Features](#features)
-- [Tech Stack](#tech-stack)
-- [Prerequisites](#prerequisites)
-- [Installation](#installation)
-- [Running the Application](#running-the-application)
-- [Building for Production](#building-for-production)
-- [Project Structure](#project-structure)
-- [Available Scripts](#available-scripts)
-- [Configuration](#configuration)
-- [Known Issues](#known-issues)
-- [Contributing](#contributing)
-- [Support](#support)
+)
 
 ## ✨ Features
 
