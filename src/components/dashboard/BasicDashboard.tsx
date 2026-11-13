@@ -29,8 +29,12 @@ import {
 } from 'recharts';
 import weatherData from '../../data/weather.json';
 import officersData from '../../data/officers.json';
+import { useAuth } from '../../context/AuthContext';
 
 export const BasicDashboard: React.FC = () => {
+  const { profile } = useAuth();
+  const isCommander = profile?.role === 'commander';
+
   const {
     routes,
     selectedRoute,
@@ -69,6 +73,7 @@ export const BasicDashboard: React.FC = () => {
     isBlocked ? 'blocked' : isAtRisk ? 'at-risk' : 'clear';
 
   const handleStatusToggle = (targetStatus: 'clear' | 'at-risk' | 'blocked') => {
+    if (!isCommander) return;
     if (targetStatus === 'blocked')       simulateLandslide(route.id);
     else if (targetStatus === 'at-risk')  simulateHeavyRain(route.id);
     else                                  clearRoute(route.id);
@@ -213,9 +218,15 @@ export const BasicDashboard: React.FC = () => {
             <div className="flex items-center bg-slate-100 dark:bg-slate-900/90 p-1 rounded-2xl
                             border border-slate-300 dark:border-white/15 shadow-sm">
               {/* Clear */}
-              <button type="button" onClick={() => handleStatusToggle('clear')}
+              <button 
+                type="button" 
+                onClick={() => handleStatusToggle('clear')}
+                disabled={!isCommander}
+                title={isCommander ? t('clear', 'Clear') : 'Commander access required'}
                 className={`flex items-center space-x-1.5 px-3 py-1.5 rounded-xl text-xs font-black transition-all duration-200 ${
-                  currentStatusState === 'clear'
+                  !isCommander
+                    ? 'opacity-60 cursor-not-allowed text-slate-400'
+                    : currentStatusState === 'clear'
                     ? 'bg-gradient-to-r from-emerald-500 to-teal-600 text-white shadow-md scale-105'
                     : 'text-slate-600 dark:text-slate-400 hover:text-emerald-700 dark:hover:text-emerald-300'
                 }`}>
@@ -224,9 +235,15 @@ export const BasicDashboard: React.FC = () => {
               </button>
 
               {/* At-Risk */}
-              <button type="button" onClick={() => handleStatusToggle('at-risk')}
+              <button 
+                type="button" 
+                onClick={() => handleStatusToggle('at-risk')}
+                disabled={!isCommander}
+                title={isCommander ? t('atRisk', 'At-Risk') : 'Commander access required'}
                 className={`flex items-center space-x-1.5 px-3 py-1.5 rounded-xl text-xs font-black transition-all duration-200 ${
-                  currentStatusState === 'at-risk'
+                  !isCommander
+                    ? 'opacity-60 cursor-not-allowed text-slate-400'
+                    : currentStatusState === 'at-risk'
                     ? 'bg-gradient-to-r from-amber-500 to-orange-600 text-white shadow-md scale-105'
                     : 'text-slate-600 dark:text-slate-400 hover:text-amber-700 dark:hover:text-amber-300'
                 }`}>
@@ -235,9 +252,15 @@ export const BasicDashboard: React.FC = () => {
               </button>
 
               {/* Blocked */}
-              <button type="button" onClick={() => handleStatusToggle('blocked')}
+              <button 
+                type="button" 
+                onClick={() => handleStatusToggle('blocked')}
+                disabled={!isCommander}
+                title={isCommander ? t('blocked', 'Blocked') : 'Commander access required'}
                 className={`flex items-center space-x-1.5 px-3 py-1.5 rounded-xl text-xs font-black transition-all duration-200 ${
-                  currentStatusState === 'blocked'
+                  !isCommander
+                    ? 'opacity-60 cursor-not-allowed text-slate-400'
+                    : currentStatusState === 'blocked'
                     ? 'bg-gradient-to-r from-red-600 to-rose-600 text-white shadow-md animate-pulse scale-105'
                     : 'text-slate-600 dark:text-slate-400 hover:text-red-700 dark:hover:text-red-300'
                 }`}>

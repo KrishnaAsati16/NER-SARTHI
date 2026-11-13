@@ -30,10 +30,8 @@ export const Header: React.FC = () => {
     { id: 'login', label: user ? t('portalAccount', 'Portal Account') : t('login', 'Portal Login'), icon: user ? UserCheck : LogIn },
   ];
 
-  // Role Gating: Driver only sees Dashboard, Explore, and Portal Account
-  const navItems = profile?.role === 'driver'
-    ? allNavItems.filter(item => ['dashboard', 'explore', 'login'].includes(item.id))
-    : allNavItems;
+  // Full navigation menu displayed for all authenticated roles & visitors
+  const navItems = allNavItems;
 
   return (
     <header className="sticky top-0 z-[2000] w-full glass-panel border-b border-slate-200 dark:border-white/10 px-4 py-2.5 sm:px-6 shadow-sm dark:shadow-glass transition-colors duration-300">

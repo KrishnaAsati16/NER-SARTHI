@@ -16,11 +16,7 @@ export const DemoControlsBar: React.FC = () => {
     t
   } = useApp();
 
-  // Role gating: Only commander can access live simulation controls
-  if (profile?.role !== 'commander') {
-    return null;
-  }
-
+  const isCommander = profile?.role === 'commander';
   const currentLangObj = SUPPORTED_LANGUAGES.find(l => l.code === currentLanguage) || SUPPORTED_LANGUAGES[0];
 
   return (
@@ -41,6 +37,11 @@ export const DemoControlsBar: React.FC = () => {
                 <Globe className="w-2.5 h-2.5" />
                 <span>{t('language', 'Language')}: {currentLangObj.flag} {currentLangObj.name}</span>
               </span>
+              {!isCommander && (
+                <span className="text-[9px] px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 font-bold border border-amber-500/30 flex items-center space-x-1">
+                  <span>🔒 Commander access required</span>
+                </span>
+              )}
             </div>
             <p className="text-[11px] text-slate-400">
               {t('demoDescription', 'Trigger live simulated emergencies broadcast across the Map, Emergency Banner & Notification Center in selected language.')}
@@ -52,9 +53,14 @@ export const DemoControlsBar: React.FC = () => {
         <div className="flex flex-wrap items-center gap-2 w-full md:w-auto">
           <button
             type="button"
-            onClick={() => simulateLandslide('R-001')}
-            className="flex-1 sm:flex-initial flex items-center justify-center space-x-1.5 px-3 py-1.5 rounded-xl bg-red-600/80 hover:bg-red-500 text-white font-bold text-xs shadow-lg shadow-red-500/20 border border-red-400/40 transition-transform active:scale-95"
-            title={t('simulateLandslide', 'Simulate Landslide')}
+            disabled={!isCommander}
+            onClick={() => isCommander && simulateLandslide('R-001')}
+            className={`flex-1 sm:flex-initial flex items-center justify-center space-x-1.5 px-3 py-1.5 rounded-xl font-bold text-xs border transition-all ${
+              isCommander
+                ? 'bg-red-600/80 hover:bg-red-500 text-white shadow-lg shadow-red-500/20 border-red-400/40 active:scale-95 cursor-pointer'
+                : 'bg-red-950/40 text-red-300/40 border-red-900/30 cursor-not-allowed opacity-60'
+            }`}
+            title={isCommander ? t('simulateLandslide', 'Simulate Landslide') : 'Commander access required'}
           >
             <AlertOctagon className="w-3.5 h-3.5" />
             <span>{t('simulateLandslide', 'Landslide Alert')}</span>
@@ -62,9 +68,14 @@ export const DemoControlsBar: React.FC = () => {
 
           <button
             type="button"
-            onClick={() => simulateHeavyRain('R-002')}
-            className="flex-1 sm:flex-initial flex items-center justify-center space-x-1.5 px-3 py-1.5 rounded-xl bg-amber-600/80 hover:bg-amber-500 text-white font-bold text-xs shadow-lg shadow-amber-500/20 border border-amber-400/40 transition-transform active:scale-95"
-            title={t('simulateHeavyRain', 'Simulate Heavy Rain')}
+            disabled={!isCommander}
+            onClick={() => isCommander && simulateHeavyRain('R-002')}
+            className={`flex-1 sm:flex-initial flex items-center justify-center space-x-1.5 px-3 py-1.5 rounded-xl font-bold text-xs border transition-all ${
+              isCommander
+                ? 'bg-amber-600/80 hover:bg-amber-500 text-white shadow-lg shadow-amber-500/20 border-amber-400/40 active:scale-95 cursor-pointer'
+                : 'bg-amber-950/40 text-amber-300/40 border-amber-900/30 cursor-not-allowed opacity-60'
+            }`}
+            title={isCommander ? t('simulateHeavyRain', 'Simulate Heavy Rain') : 'Commander access required'}
           >
             <CloudRain className="w-3.5 h-3.5" />
             <span>{t('simulateHeavyRain', 'Heavy Rain Alert')}</span>
@@ -72,9 +83,14 @@ export const DemoControlsBar: React.FC = () => {
 
           <button
             type="button"
-            onClick={() => simulateVehicleDelay('V-001')}
-            className="flex-1 sm:flex-initial flex items-center justify-center space-x-1.5 px-3 py-1.5 rounded-xl bg-blue-600/80 hover:bg-blue-500 text-white font-bold text-xs shadow-lg shadow-blue-500/20 border border-blue-400/40 transition-transform active:scale-95"
-            title={t('delayVehicle', 'Delay Vehicle')}
+            disabled={!isCommander}
+            onClick={() => isCommander && simulateVehicleDelay('V-001')}
+            className={`flex-1 sm:flex-initial flex items-center justify-center space-x-1.5 px-3 py-1.5 rounded-xl font-bold text-xs border transition-all ${
+              isCommander
+                ? 'bg-blue-600/80 hover:bg-blue-500 text-white shadow-lg shadow-blue-500/20 border-blue-400/40 active:scale-95 cursor-pointer'
+                : 'bg-blue-950/40 text-blue-300/40 border-blue-900/30 cursor-not-allowed opacity-60'
+            }`}
+            title={isCommander ? t('delayVehicle', 'Delay Vehicle') : 'Commander access required'}
           >
             <Clock className="w-3.5 h-3.5" />
             <span>{t('delayVehicle', 'Delay Vehicle')}</span>
@@ -82,9 +98,14 @@ export const DemoControlsBar: React.FC = () => {
 
           <button
             type="button"
-            onClick={() => clearRoute('R-001')}
-            className="flex-1 sm:flex-initial flex items-center justify-center space-x-1.5 px-3 py-1.5 rounded-xl bg-emerald-600/80 hover:bg-emerald-500 text-white font-bold text-xs shadow-lg shadow-emerald-500/20 border border-emerald-400/40 transition-transform active:scale-95"
-            title={t('clearCorridor', 'Clear Corridor')}
+            disabled={!isCommander}
+            onClick={() => isCommander && clearRoute('R-001')}
+            className={`flex-1 sm:flex-initial flex items-center justify-center space-x-1.5 px-3 py-1.5 rounded-xl font-bold text-xs border transition-all ${
+              isCommander
+                ? 'bg-emerald-600/80 hover:bg-emerald-500 text-white shadow-lg shadow-emerald-500/20 border-emerald-400/40 active:scale-95 cursor-pointer'
+                : 'bg-emerald-950/40 text-emerald-300/40 border-emerald-900/30 cursor-not-allowed opacity-60'
+            }`}
+            title={isCommander ? t('clearCorridor', 'Clear Corridor') : 'Commander access required'}
           >
             <CheckCircle2 className="w-3.5 h-3.5" />
             <span>{t('clearCorridor', 'Clear Corridor')}</span>

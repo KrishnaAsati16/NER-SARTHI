@@ -39,13 +39,9 @@ export const MobileNav: React.FC = () => {
     { id: 'login', label: user ? t('portalAccount', 'Portal Account') : t('login', 'Portal Login'), icon: user ? UserCheck : LogIn },
   ];
 
-  const bottomNavItems = profile?.role === 'driver'
-    ? rawBottomNavItems.filter(item => ['dashboard', 'explore', 'login'].includes(item.id))
-    : rawBottomNavItems.filter(item => item.id !== 'explore');
-
-  const fullNavItems = profile?.role === 'driver'
-    ? rawFullNavItems.filter(item => ['dashboard', 'explore', 'login'].includes(item.id))
-    : rawFullNavItems;
+  // Full navigation menu displayed for all authenticated roles & visitors
+  const bottomNavItems = rawBottomNavItems.filter(item => item.id !== 'explore');
+  const fullNavItems = rawFullNavItems;
 
   return (
     <>
