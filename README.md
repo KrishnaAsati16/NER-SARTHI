@@ -141,7 +141,7 @@ supabase functions deploy submit-driver-report
 
 ## Deploying the Frontend
 
-Deploy to Vercel/Netlify with these two environment variables only:
+Deploy to Vercel with these two environment variables only:
 
 ```
 VITE_SUPABASE_URL=https://<your-project-ref>.supabase.co
