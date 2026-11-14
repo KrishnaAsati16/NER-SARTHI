@@ -64,11 +64,9 @@ docs/SECURITY.md  # RLS policy reference
 - Node.js 18+
 - A free [Supabase](https://supabase.com) project
 
-### 2. Clone and install
+### 2. Install dependencies
 
 ```bash
-git clone https://github.com/KrishnaAsati16/NER-SARTHI.git
-cd NER-SARTHI
 npm install
 ```
 
@@ -167,4 +165,4 @@ In Supabase **Authentication → URL Configuration**, add your production domain
 
 ## License
 
-This project is for educational/demo purposes. 
+This project is for educational/demo purposes.
